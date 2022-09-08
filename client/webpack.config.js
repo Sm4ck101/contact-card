@@ -1,7 +1,10 @@
-const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { InjectManifest } = require("workbox-webpack-plugin");
+
+const path = require("path");
 
 module.exports = {
+  mode: "development",
   entry: "./src/js/index.js",
   output: {
     filename: "bundle.js",
@@ -11,6 +14,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "src/index.html",
       title: "Webpack Plugin",
+    }),
+    new InjectManifest({
+      swSrc: "./src/sw.js",
+      swDest: "service-worker.js",
     }),
   ],
   module: {
